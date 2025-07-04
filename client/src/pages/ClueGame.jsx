@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Botto from "../assets/botto.png"
+import DClound from "../assets/dialog clound.svg"
 
 const animals = [
   { name: "Pig", legs: 4, habitat: "Farm", sound: "Oink", fly: "yes" },
@@ -68,13 +69,21 @@ export default function ClueGame() {
   }
 
   return (
-    <div className="gap-10 h-dvh flex flex-col justify-around items-center max-md:gap-16">
+    <div className="gap-10 h-screen w-full flex flex-col justify-around items-center max-md:gap-16">
       <h2>Guess the Animal!</h2>
-      <img src={Botto} alt="" />
+      <div className="relative">
+        <img src={Botto} alt="" />
+        <div className="absolute bottom-10/12 left-10/15 whitespace-nowrap break-words w-[250px] h-[150px]" >
+          <img src={DClound} alt="" className="relative w-full h-full"/>
+          <div className="absolute w-[190px] h-[90px] top-[16%] left-[13%] flex items-center justify-center">
+            <p className=" text-[12px]">{currentQuestion.label}</p>
 
+          </div>
+        </div>
+      </div>
+     
       {!gameOver && currentQuestion && (
         <div className='flex flex-col items-center justify-between'>
-          <p>{currentQuestion.label}</p>
           <div className='flex gap-1 max-md:flex-col'>
             {options.map((option) => (
               <button
