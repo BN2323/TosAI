@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 
 const animals = [
-  { name: "Pig", legs: 4, habitat: "Farm", sound: "Oink" },
-  { name: "Chicken", legs: 2, habitat: "Farm", sound: "Cluck" },
-  { name: "Snake", legs: 0, habitat: "Farm", sound: "Hiss" },
-  { name: "Cat", legs: 4, habitat: "Farm", sound: "Meow" },
-  { name: "Dog", legs: 4, habitat: "House", sound: "Woof"},
-  { name: "Eagle", legs: 2, habitat: "Forest", sound: "Eek"}
+  { name: "Pig", legs: 4, habitat: "Farm", sound: "Oink", fly: "yes" },
+  { name: "Chicken", legs: 2, habitat: "Farm", sound: "Cluck", fly: "yes" },
+  { name: "Snake", legs: 0, habitat: "Farm", sound: "Hiss", fly: "no" },
+  { name: "Cat", legs: 4, habitat: "Farm", sound: "Meow", fly: "no" },
+  { name: "Dog", legs: 4, habitat: "House", sound: "Woof", fly: "no" },
+  { name: "Eagle", legs: 2, habitat: "Forest", sound: "Eek", fly: "yes" }
 ];
 
 const questions = [
   { key: "legs", label: "How many legs does it have?" },
   { key: "habitat", label: "Where does it live?" },
+  { key: "fly", label: "Does it fly?"},
   { key: "sound", label: "What sound does it make?" },
 ];
 
