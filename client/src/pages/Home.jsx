@@ -5,9 +5,9 @@ import { NavButton } from '../components/NavButton'
 
 const Home = () => {
   return (
-    <div className='gap-10 flex flex-col justify-around items-center m'>
+    <div className='gap-10 flex flex-col justify-around items-center max-md:gap-16'>
       <img src={Logo} alt="" />
-      <div className='flex gap-4'>
+      <div className='flex gap-4 max-md:flex-col'>
         <NavButton to="/lesson">Lesson</NavButton>
         <NavButton to="/minigame">Mini Games</NavButton>
       </div>
