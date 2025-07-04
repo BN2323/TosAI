@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Botto from "../assets/botto.png"
 
 const animals = [
   { name: "Pig", legs: 4, habitat: "Farm", sound: "Oink", fly: "yes" },
@@ -67,22 +68,27 @@ export default function ClueGame() {
   }
 
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", maxWidth: 400, margin: "auto" }}>
+    <div className="gap-10 h-dvh flex flex-col justify-around items-center max-md:gap-16">
       <h2>Guess the Animal!</h2>
+      <img src={Botto} alt="" />
 
       {!gameOver && currentQuestion && (
-        <>
+        <div className='flex flex-col items-center justify-between'>
           <p>{currentQuestion.label}</p>
-          {options.map((option) => (
-            <button
-              key={option}
-              onClick={() => handleAnswer(option)}
-              style={{ margin: 5, padding: "8px 12px" }}
-            >
-              {option}
-            </button>
-          ))}
-        </>
+          <div className='flex gap-1 max-md:flex-col'>
+            {options.map((option) => (
+              <button
+                className="px-4 py-2 bg-white text-black my-1 text-2xl rounded-3xl w-65 h-15 cursor-pointer outline-2  hover:bg-[#62FFA3]"
+                key={option}
+                onClick={() => handleAnswer(option)}
+                style={{ margin: 5, padding: "8px 12px" }}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+          
+        </div>
       )}
 
       {gameOver && (
@@ -93,6 +99,7 @@ export default function ClueGame() {
             <h3>Hmm... I don’t know. 😕</h3>
           )}
           <button
+            className="px-4 py-2 bg-white text-black my-1 text-2xl rounded-3xl w-65 h-15 cursor-pointer outline-2  hover:bg-[#62FFA3]"
             onClick={() => {
               setAnswers({});
               setCurrentQIndex(0);
