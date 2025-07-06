@@ -121,32 +121,29 @@ export default function ClueGame() {
   }, [options, gameOver]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-6">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-green-100 via-sky-100 to-yellow-100 font-fun px-4 py-6">
       {/* Game Title */}
-      <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-4">
-        🎯 Guess the Animal!
-      </h1>
+      <h1 className="text-4xl font-bold text-sky-800 mb-8 animate-pulse">🎯 Guess the Animal!</h1>
   
-      {/* Bot + Question Bubble */}
-      <div className="relative mb-6">
-        <img src={Botto} alt="Bot" className="w-36 md:w-48" />
-        <div className="absolute -top-2 left-[60%] w-48 h-28">
-          <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
-          <div className="absolute top-5 left-4 right-4 flex items-center justify-center text-center">
-            <p className="relative top-4 text-[12px] text-gray-700 font-mono">{currentQuestion.label}</p>
+      {/* Bot with Speech Bubble */}
+      <div className="relative mb-10">
+        <img src={Botto} alt="Bot character" className="w-52 md:w-72 drop-shadow-lg" />
+        <div className="absolute -top-4 left-[60%] w-64 h-40">
+          <img src={DClound} alt="Dialog Cloud" className="w-full h-full" />
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-center text-center">
+            <p className="text-base md:text-lg text-gray-700">{currentQuestion.label}</p>
           </div>
         </div>
       </div>
   
       {/* Answer Buttons */}
       {!gameOver && currentQuestion && options.length > 1 && (
-        <div className="flex flex-wrap gap-3 justify-center mb-6">
+        <div className="flex flex-wrap gap-4 justify-center mb-10">
           {options.map((option) => (
             <button
               key={option}
               onClick={() => handleAnswer(option)}
-              className="px-4 py-2 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
-              style={{ fontFamily: "Fredoka, sans-serif" }}
+              className="px-6 py-3 bg-white text-black text-xl md:text-2xl rounded-full shadow-lg transition-all duration-200 hover:bg-emerald-300 hover:scale-105 active:scale-95"
             >
               {option}
             </button>
@@ -154,16 +151,16 @@ export default function ClueGame() {
         </div>
       )}
   
-      {/* Result */}
+      {/* Game Over Result */}
       {gameOver && (
-        <div className="flex flex-col items-center mt-4">
-          <div className="backdrop-blur-md bg-white/50 border border-white/30 rounded-2xl shadow-md px-4 py-4 w-72 h-52 flex flex-col items-center justify-between">
-            <h3 className="text-lg font-medium text-sky-900">
+        <div className="flex flex-col items-center mt-6">
+          <div className="backdrop-blur-md bg-white/50 border border-white/30 rounded-3xl shadow-xl px-6 py-5 w-[300px] h-[250px] flex flex-col items-center justify-between">
+            <h3 className="text-2xl font-semibold text-sky-900">
               {remainingAnimals.length === 1
                 ? `It's a ${remainingAnimals[0].name}! 🎉`
                 : "Hmm... I don’t know. 😕"}
             </h3>
-            <div className="w-28 h-28 overflow-hidden rounded-xl">
+            <div className="w-40 h-40 rounded-2xl overflow-hidden flex justify-center items-center shadow-md">
               {remainingAnimals[0] && (
                 <img src={remainingAnimals[0].src} alt={remainingAnimals[0].name} className="object-cover w-full h-full" />
               )}
@@ -176,8 +173,7 @@ export default function ClueGame() {
               setCurrentQIndex(0);
               setGameOver(false);
             }}
-            className="mt-4 px-4 py-2 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
-            style={{ fontFamily: "Fredoka, sans-serif" }}
+            className="mt-6 px-6 py-3 bg-white text-black text-lg rounded-full shadow-md transition-all hover:bg-emerald-300 hover:scale-105 active:scale-95"
           >
             🔁 Play Again
           </button>

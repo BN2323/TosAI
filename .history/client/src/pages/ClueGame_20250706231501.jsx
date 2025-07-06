@@ -121,7 +121,7 @@ export default function ClueGame() {
   }, [options, gameOver]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-6">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-green-100 via-sky-100 to-yellow-100 px-4 py-6">
       {/* Game Title */}
       <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-4">
         🎯 Guess the Animal!
@@ -133,7 +133,7 @@ export default function ClueGame() {
         <div className="absolute -top-2 left-[60%] w-48 h-28">
           <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
           <div className="absolute top-5 left-4 right-4 flex items-center justify-center text-center">
-            <p className="relative top-4 text-[12px] text-gray-700 font-mono">{currentQuestion.label}</p>
+            <p className="text-sm text-gray-700">{currentQuestion.label}</p>
           </div>
         </div>
       </div>

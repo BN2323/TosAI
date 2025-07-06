@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@layer components{
+  .background{
+    height: 100vh;
+    width: 100%;
+  }
+  .button-hover{
+    background-color: #62FFA3;
+  }
+  .main-col{
+    background-color: #69CFF3;
+  }
+}
+
+body {
+  background-color: #4FB0D3;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
