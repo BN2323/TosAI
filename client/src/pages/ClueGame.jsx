@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Botto from "../assets/botto.png"
 import DClound from "../assets/dialog clound.svg"
 import Pig from "../assets/animals/pig.jpg"
@@ -121,7 +122,7 @@ export default function ClueGame() {
   }, [options, gameOver]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-6">
+    <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 pt-6 pb-24">
       {/* Game Title */}
       <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-4">
         🎯 Guess the Animal!
@@ -145,7 +146,7 @@ export default function ClueGame() {
             <button
               key={option}
               onClick={() => handleAnswer(option)}
-              className="px-4 py-2 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
+              className="px-8 py-6 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
               style={{ fontFamily: "Fredoka, sans-serif" }}
             >
               {option}
@@ -163,24 +164,39 @@ export default function ClueGame() {
                 ? `It's a ${remainingAnimals[0].name}! 🎉`
                 : "Hmm... I don’t know. 😕"}
             </h3>
-            <div className="w-28 h-28 overflow-hidden rounded-xl">
+            <div className="w-[80%] h-[90%] mt-3 overflow-hidden rounded-xl">
               {remainingAnimals[0] && (
                 <img src={remainingAnimals[0].src} alt={remainingAnimals[0].name} className="object-cover w-full h-full" />
               )}
             </div>
           </div>
-  
-          <button
-            onClick={() => {
-              setAnswers({});
-              setCurrentQIndex(0);
-              setGameOver(false);
-            }}
-            className="mt-4 px-4 py-2 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
-            style={{ fontFamily: "Fredoka, sans-serif" }}
-          >
-            🔁 Play Again
-          </button>
+              
+          <div className="flex gap-5">
+            <button
+              onClick={() => {
+                setAnswers({});
+                setCurrentQIndex(0);
+                setGameOver(false);
+              }}
+              className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
+              style={{ fontFamily: "Fredoka, sans-serif" }}
+            >
+              🔁 Play Again
+            </button>
+            <Link
+              to="/"
+            >
+              <button
+                className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
+                style={{ fontFamily: "Fredoka, sans-serif" }}
+              >
+                🏠 Home
+              </button>
+            </Link>
+          </div>
+          
+
+          
         </div>
       )}
     </div>
