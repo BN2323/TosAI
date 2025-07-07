@@ -121,65 +121,61 @@ export default function ClueGame() {
   }, [options, gameOver]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center px-4 py-6">
-      {/* Game Title */}
-      <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-4">
-        🎯 Guess the Animal!
-      </h1>
-  
-      {/* Bot + Question Bubble */}
-      <div className="relative mb-6">
-        <img src={Botto} alt="Bot" className="w-36 md:w-48" />
-        <div className="absolute -top-2 left-[60%] w-48 h-28">
-          <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
-          <div className="absolute top-5 left-4 right-4 flex items-center justify-center text-center">
-            <p className="relative top-4 text-[12px] text-gray-700 font-mono">{currentQuestion.label}</p>
+    <div className="h-screen w-full flex flex-col items-center" style={{ marginTop: 25}}>
+      <div className="flex flex-col items-center gap-30 max-md:gap-45">
+        <h2 >Guess the Animal!</h2>
+        <div className="relative">
+          <img src={Botto} alt="" className="max-md:"/>
+          <div className="absolute bottom-10/12 left-10/15 max-md:left-10/16 whitespace-nowrap break-words w-[250px] h-[150px] max-md:w-[170px] max-md:h-[100px]" >
+            <img src={DClound} alt="" className="relative w-full h-full"/>
+            <div className="absolute w-[190px] h-[100px] max-md:w-[120px] max-md:h-[60px] top-[15%] left-[13%] max-md:left-[16%] flex items-center justify-center">
+              <p className=" text-[12px] max-md:whitespace-normal max-md:text-center">{currentQuestion.label}</p>
+
+            </div>
           </div>
         </div>
       </div>
-  
-      {/* Answer Buttons */}
-      {!gameOver && currentQuestion && options.length > 1 && (
-        <div className="flex flex-wrap gap-3 justify-center mb-6">
-          {options.map((option) => (
-            <button
-              key={option}
-              onClick={() => handleAnswer(option)}
-              className="px-4 py-2 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
-              style={{ fontFamily: "Fredoka, sans-serif" }}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      )}
-  
-      {/* Result */}
-      {gameOver && (
-        <div className="flex flex-col items-center mt-4">
-          <div className="backdrop-blur-md bg-white/50 border border-white/30 rounded-2xl shadow-md px-4 py-4 w-72 h-52 flex flex-col items-center justify-between">
-            <h3 className="text-lg font-medium text-sky-900">
-              {remainingAnimals.length === 1
-                ? `It's a ${remainingAnimals[0].name}! 🎉`
-                : "Hmm... I don’t know. 😕"}
-            </h3>
-            <div className="w-28 h-28 overflow-hidden rounded-xl">
-              {remainingAnimals[0] && (
-                <img src={remainingAnimals[0].src} alt={remainingAnimals[0].name} className="object-cover w-full h-full" />
-              )}
+      
+      <div className='flex flex-col items-center'>    
+        {!gameOver && currentQuestion && options.length > 1 &&(
+          
+            <div className='flex gap-4 flex-wrap items-center justify-center' style={{ marginTop: 15 }}>
+              {options.map((option) => (
+                <button
+                  className="md:basis-1/3  px-4 py-2 bg-white text-black my-1 text-2xl rounded-3xl w-55 h-15 max-md:w-30 cursor-pointer outline-2  hover:bg-[#62FFA3]"
+                  key={option}
+                  onClick={() => handleAnswer(option)}
+                >
+                  {option}
+                </button>
+              ))}
             </div>
+            
+        )}
+      </div>
+
+      {gameOver && (
+        <div className="flex flex-col items-center" style={{marginTop: 5}}>
+          <div className="flex flex-col items-center gap-2 w-[300px] h-[200px] main-col bg-opacity-60 rounded-3xl">
+            {remainingAnimals.length === 1 ? (
+              <h3>It's a {remainingAnimals[0].name}! 🎉</h3>
+            ) : (
+              <h3>Hmm... I don’t know. 😕</h3>
+            )}
+            <div className="h-[90%] w-[90%] overflow-hidden mb-[5%] rounded-2xl flex justify-center items-center">
+              <img src={remainingAnimals[0].src} alt=""  />
+            </div> 
           </div>
-  
           <button
+            className="px-4 py-2 bg-white text-black my-1 text-2xl rounded-3xl w-65 h-15 cursor-pointer outline-2  hover:bg-[#62FFA3]"
             onClick={() => {
               setAnswers({});
               setCurrentQIndex(0);
               setGameOver(false);
             }}
-            className="mt-4 px-4 py-2 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
-            style={{ fontFamily: "Fredoka, sans-serif" }}
+            style={{ marginTop: 15 }}
           >
-            🔁 Play Again
+            Play Again
           </button>
         </div>
       )}

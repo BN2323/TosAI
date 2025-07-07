@@ -133,7 +133,7 @@ export default function ClueGame() {
         <div className="absolute -top-2 left-[60%] w-48 h-28">
           <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
           <div className="absolute top-5 left-4 right-4 flex items-center justify-center text-center">
-            <p className="relative top-4 text-[12px] text-gray-700 font-mono">{currentQuestion.label}</p>
+            <p className="relative top-4 font- text-gray-700 font-mono">{currentQuestion.label}</p>
           </div>
         </div>
       </div>
