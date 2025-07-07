@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Typewriter } from 'react-simple-typewriter';
 import Botto from "../assets/botto.png"
 import DClound from "../assets/dialog clound.svg"
 import Pig from "../assets/animals/pig.jpg"
@@ -67,7 +68,9 @@ const questions = [
 export default function ClueGame() {
   const [answers, setAnswers] = useState({});
   const [currentQIndex, setCurrentQIndex] = useState(0);
+  const [started, setStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [ended, setEnded] = useState(false);
 
   // Filter animals based on answers so far
   const remainingAnimals = animals.filter((animal) => {
@@ -122,83 +125,134 @@ export default function ClueGame() {
   }, [options, gameOver]);
 
   return (
+
     <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 pt-6 pb-24">
-      {/* Game Title */}
-      <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-4">
-        🎯 Guess the Animal!
-      </h1>
-  
-      {/* Bot + Question Bubble */}
-      <div className="relative mb-6">
-        <img src={Botto} alt="Bot" className="w-36 md:w-48" />
-        <div className="absolute -top-2 left-[60%] w-48 h-28">
-          <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
-          <div className="absolute top-5 left-4 right-4 flex items-center justify-center text-center">
-            <p className="relative top-4 text-[12px] text-gray-700 font-mono">{currentQuestion.label}</p>
-          </div>
-        </div>
-      </div>
-  
-      {/* Answer Buttons */}
-      {!gameOver && currentQuestion && options.length > 1 && (
-        <div className="flex flex-wrap gap-3 justify-center mb-6">
-          {options.map((option) => (
-            <button
-              key={option}
-              onClick={() => handleAnswer(option)}
-              className="px-8 py-6 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
-              style={{ fontFamily: "Fredoka, sans-serif" }}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      )}
-  
-      {/* Result */}
-      {gameOver && (
-        <div className="flex flex-col items-center mt-4">
-          <div className="backdrop-blur-md bg-white/50 border border-white/30 rounded-2xl shadow-md px-4 py-4 w-72 h-52 flex flex-col items-center justify-between">
-            <h3 className="text-lg font-medium text-sky-900">
-              {remainingAnimals.length === 1
-                ? `It's a ${remainingAnimals[0].name}! 🎉`
-                : "Hmm... I don’t know. 😕"}
-            </h3>
-            <div className="w-[80%] h-[90%] mt-3 overflow-hidden rounded-xl">
-              {remainingAnimals[0] && (
-                <img src={remainingAnimals[0].src} alt={remainingAnimals[0].name} className="object-cover w-full h-full" />
-              )}
+      {!started ? (
+        <>
+          <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-3xl max-sm:text-2xl text-sky-800 font-semibold mb-4">
+            🎯 Welcome to Clue Game!
+          </h1>
+          <div className="relative mb-6  max-sm:mr-35">
+            <img src={Botto} alt="Bot" className="w-36 md:w-48" />
+            <div className="absolute -top-10 left-[70%] w-55 h-30">
+              <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
+              <div className="absolute top-4 left-6 flex items-center justify-center text-center w-[80%] h-[68%]">
+                <p className="relative text-[12px] text-gray-700 font-mono">
+                  <Typewriter
+                    words={[
+                      "Think of any animal in your mind,",
+                      "and give me the data of the animal!"
+                    ]}
+                    loop={Infinity}
+                    typeSpeed={40}
+                    deleteSpeed={20}
+                    delaySpeed={2000}
+                  />
+                </p>
+              </div>
             </div>
           </div>
-              
-          <div className="flex gap-5">
-            <button
-              onClick={() => {
-                setAnswers({});
-                setCurrentQIndex(0);
-                setGameOver(false);
-              }}
-              className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
-              style={{ fontFamily: "Fredoka, sans-serif" }}
-            >
-              🔁 Play Again
-            </button>
-            <Link
-              to="/"
-            >
-              <button
-                className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
-                style={{ fontFamily: "Fredoka, sans-serif" }}
-              >
-                🏠 Home
-              </button>
-            </Link>
+          <button
+            onClick={() => setStarted(true)}
+            className="px-10 py-6 bg-emerald-400 text-white text-xl rounded-full shadow-md transition hover:bg-emerald-500 hover:scale-105"
+            style={{ fontFamily: "Fredoka, sans-serif" }}
+          >
+            ▶️ Play
+          </button>
+        </>
+      ) : (
+        <>
+          {/* Game Title */}
+          <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-4">
+            🎯 Guess the Animal!
+          </h1>
+      
+          {/* Bot + Question Bubble */}
+          <div className="relative mb-6">
+            <img src={Botto} alt="Bot" className="w-36 md:w-48  max-sm:mr-35" />
+            <div className="absolute -top-7 left-[70%] max-sm:left-[36%] w-48 h-28 ">
+              <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
+              <div className="absolute top-4 left-8 right-4 flex items-center justify-center text-center w-[70%] h-[70%]">
+                <p className="relative text-[12px] text-gray-700 font-mono break-words whitespace-wrap">
+                  <Typewriter
+                    key={`${currentQuestion.key}-${gameOver}`} 
+                    words={[
+                      !gameOver ? currentQuestion.label : "Is this what you thought?"
+                    ]}
+                    loop={1}
+                    typeSpeed={30}
+                    delaySpeed={1000}
+                  />
+                  
+                </p>
+              </div>
+            </div>
           </div>
-          
+      
+          {/* Answer Buttons */}
+          {!gameOver && currentQuestion && options.length > 1 && (
+            <div className="flex flex-wrap gap-3 justify-center mb-6">
+              {options.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => handleAnswer(option)}
+                  className="px-8 py-6 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
+                  style={{ fontFamily: "Fredoka, sans-serif" }}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          )}
+      
+          {/* Result */}
+          {gameOver && (
+            <div className="flex flex-col items-center">
+              <div className="backdrop-blur-md bg-white/50 border border-white/30 rounded-2xl shadow-md px-4 py-4 w-72 h-52 flex flex-col items-center justify-between">
+                <h3 className="text-lg font-medium text-sky-900">
+                  {remainingAnimals.length === 1
+                    ? `It's a ${remainingAnimals[0].name}! 🎉`
+                    : "Hmm... I don’t know. 😕"}
+                </h3>
+                <div className="w-[80%] h-[90%] mt-3 overflow-hidden rounded-xl">
+                  {remainingAnimals[0] && (
+                    <img src={remainingAnimals[0].src} alt={remainingAnimals[0].name} className="object-cover w-full h-full" />
+                  )}
+                </div>
+              </div>
+                  
+              <div className="flex gap-5">
+                <button
+                  onClick={() => {
+                    setAnswers({});
+                    setCurrentQIndex(0);
+                    setGameOver(false);
+                    setStarted(false);
+                  }}
+                  className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
+                  style={{ fontFamily: "Fredoka, sans-serif" }}
+                >
+                  🔁 Play Again
+                </button>
+                <Link
+                  to="/"
+                >
+                  <button
+                    className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
+                    style={{ fontFamily: "Fredoka, sans-serif" }}
+                  >
+                    🏠 Home
+                  </button>
+                </Link>
+              </div>
+              
 
-          
-        </div>
+              
+            </div>
+          )}
+        </>
       )}
     </div>
+    
   );
 }
