@@ -167,7 +167,7 @@ export default function CreatureLab() {
         🦄 {selections.head}-{selections.body}-{selections.tail}
       </p>
       <img
-        src={`../../public/creatures/${selections.head.toLowerCase()}-${selections.body.toLowerCase()}-${selections.tail.toLowerCase()}.jpg`}
+        src={`../../dist/creatures/${selections.head.toLowerCase()}-${selections.body.toLowerCase()}-${selections.tail.toLowerCase()}.jpg`}
         alt={`${selections.head}-${selections.body}-${selections.tail}`}
         className="w-auto h-[85%] object-contain mb-1"
       />
