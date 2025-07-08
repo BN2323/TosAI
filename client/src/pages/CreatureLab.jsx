@@ -6,6 +6,7 @@ import DClound from "../assets/dialog clound.svg";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
 
+
 const parts = {
   head: ["Lion", "Eagle", "Dragon"],
   body: ["Horse", "Snake", "Fish"],
@@ -53,11 +54,13 @@ export default function CreatureLab() {
           </h1>
 
           <div className="relative mb-6">
-            <img src={Botto} alt="Bot" className="w-36 md:w-48" />
-            <div className="absolute -top-10 left-[70%] w-55 h-30">
+            <img src={Botto} alt="Bot" className="w-48 max-sm:mr-35" />
+            <div
+              className="absolute left-30 -top-15 ml-2 sm:ml-4 w-64 h-36"
+            >
               <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
-              <div className="absolute top-4 left-6 flex items-center justify-center text-center w-[80%] h-[68%]">
-                <p className="relative text-[12px] text-gray-700 font-mono break-words">
+              <div className="absolute top-6 left-10 right-9 bottom-8 flex items-center justify-center text-center overflow-hidden">
+                <p className="text-sm text-gray-700 font-mono font-bold break-words whitespace-normal">
                   <Typewriter
                     words={[
                       "Mix and match animal parts,",
@@ -90,11 +93,13 @@ export default function CreatureLab() {
           </h1>
 
           <div className="relative mb-6">
-            <img src={Botto} alt="Bot" className="w-36 md:w-48" />
-            <div className="absolute -top-7 left-[70%] max-sm:left-[36%] w-48 h-28">
+            <img src={Botto} alt="Bot" className="w-48 max-sm:mr-35" />
+            <div
+              className="absolute left-30 -top-15 ml-2 sm:ml-4 w-64 h-36"
+            >
               <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
-              <div className="absolute top-4 left-8 right-4 flex items-center justify-center text-center w-[70%] h-[70%]">
-                <p className="relative text-[12px] text-gray-700 font-mono break-words">
+              <div className="absolute top-6 left-10 right-9 bottom-8 flex items-center justify-center text-center overflow-hidden">
+                <p className="text-sm text-gray-700 font-mono font-bold break-words whitespace-normal">
                   <Typewriter
                     key={currentPart}
                     words={[`Choose a ${currentPart} part for your creature!`]}
@@ -134,16 +139,18 @@ export default function CreatureLab() {
       initialVelocityY={{ min: -10, max: 10 }}
       style={{ position: "fixed", top: 0, left: 0, zIndex: 9999, pointerEvents: "none" }}
     />
-    <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-4">
+    <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-14">
       🎉 Your Creature is Ready!
     </h1>
 
-    <div className="relative mb-6">
-      <img src={Botto} alt="Bot" className="w-36 md:w-48" />
-      <div className="absolute -top-7 left-[70%] max-sm:left-[36%] w-48 h-28">
+    <div className="relative flex justify-center">
+      <img src={Botto} alt="Bot" className="w-48 max-sm:mr-35" />
+      <div
+        className="absolute left-28 -top-15 ml-2 sm:ml-4 w-64 h-36"
+      >
         <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
-        <div className="absolute top-4 left-8 right-4 flex items-center justify-center text-center w-[70%] h-[70%]">
-          <p className="relative text-[12px] text-gray-700 font-mono break-words">
+        <div className="absolute top-6 left-10 right-9 bottom-8 flex items-center justify-center text-center overflow-hidden">
+          <p className="text-sm text-gray-700 font-mono font-bold break-words whitespace-normal">
             <Typewriter
               words={[`Meet your new creature!`]}
               loop={1}
@@ -155,10 +162,15 @@ export default function CreatureLab() {
       </div>
     </div>
 
-    <div className="backdrop-blur-md bg-white/50 border border-white/30 rounded-2xl shadow-md px-4 py-4 w-72 h-52 flex flex-col items-center justify-center">
-      <p className="text-lg font-medium text-sky-900 mb-2">
+    <div className="backdrop-blur-md bg-white/50 border border-white/30 rounded-2xl shadow-md px-4 py-4 w-70 h-63 flex flex-col items-center justify-center">
+      <p className="text-lg font-medium text-sky-900 mb-1">
         🦄 {selections.head}-{selections.body}-{selections.tail}
       </p>
+      <img
+        src={`../../public/creatures/${selections.head.toLowerCase()}-${selections.body.toLowerCase()}-${selections.tail.toLowerCase()}.jpg`}
+        alt={`${selections.head}-${selections.body}-${selections.tail}`}
+        className="w-auto h-[85%] object-contain mb-1"
+      />
       <p className="text-sm text-sky-700">
         Amazing combination!
       </p>
