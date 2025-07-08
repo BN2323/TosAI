@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Typewriter } from 'react-simple-typewriter';
-import { fadeVolume, currentlyPlaying } from "../components/MusicManager";
+import { playSound, fadeVolume, currentlyPlaying } from "../components/MusicManager";
 import Botto from "../assets/botto.png"
 import DClound from "../assets/dialog clound.svg"
 import Pig from "../assets/animals/pig.jpg"
@@ -104,6 +104,11 @@ export default function ClueGame() {
     if ((remainingAnimals.length === 1 || remainingAnimals.length === 0) && !gameOver) {
       setGameOver(true);
     }
+
+    if (gameOver) {
+      playSound("win");
+      fadeVolume(currentlyPlaying, 0.3, 100)
+    }
   }, [remainingAnimals, gameOver]);
 
   const getValidOptions = (questionKey, animalsList) => {
@@ -128,6 +133,8 @@ export default function ClueGame() {
       setCurrentQIndex(currentQIndex + 1);
     }
   }
+
+
 
   useEffect(() => {
     if (!gameOver && options.length === 1) {
@@ -163,7 +170,7 @@ export default function ClueGame() {
             </div>
           </div>
           <button
-            onClick={() => {setStarted(true); fadeVolume(currentlyPlaying, 1, 100)}}
+            onClick={() => {setStarted(true); fadeVolume(currentlyPlaying, 0.4, 100)}}
             className="px-8 sm:px-10 py-4 sm:py-6 bg-emerald-400 text-white text-lg sm:text-xl rounded-full shadow-md transition hover:bg-emerald-500 hover:scale-105"
             style={{ fontFamily: "Fredoka, sans-serif" }}
           >

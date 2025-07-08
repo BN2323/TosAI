@@ -15,6 +15,7 @@ labMusic.loop = true;
 menuMusic.volume = 0.4;
 clueMusic.volume = 0.3;
 labMusic.volume = 0.3;
+clickSound.volume = 1;
 
 export let currentlyPlaying = null;
 
