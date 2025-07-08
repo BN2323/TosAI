@@ -5,11 +5,13 @@ import CreatureLab from "./pages/CreatureLab";
 import NavBar from "./components/NavBar";
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
+import MusicManager from "./components/MusicManager";
 
 export default function App() {
   const [showNav, setShowNav] = useState(false)
   return (
     <BrowserRouter>
+      <MusicManager/>
       <button onClick={() => setShowNav(!showNav)} className={`${showNav ? "hidden" : "block"} fixed top-1 left-1 text-black/70 rounded-[10px] hover:bg-sky-900/70 hover:text-[#4FB0D3] transition-all duration-100`}><IoMenu size={30} /></button>
 
       <div className="flex min-h-screen">

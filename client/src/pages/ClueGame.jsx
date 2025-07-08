@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Typewriter } from 'react-simple-typewriter';
+import { fadeVolume, currentlyPlaying } from "../components/MusicManager";
 import Botto from "../assets/botto.png"
 import DClound from "../assets/dialog clound.svg"
 import Pig from "../assets/animals/pig.jpg"
@@ -162,7 +163,7 @@ export default function ClueGame() {
             </div>
           </div>
           <button
-            onClick={() => setStarted(true)}
+            onClick={() => {setStarted(true); fadeVolume(currentlyPlaying, 1, 100)}}
             className="px-8 sm:px-10 py-4 sm:py-6 bg-emerald-400 text-white text-lg sm:text-xl rounded-full shadow-md transition hover:bg-emerald-500 hover:scale-105"
             style={{ fontFamily: "Fredoka, sans-serif" }}
           >
