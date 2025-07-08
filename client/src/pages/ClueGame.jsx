@@ -142,11 +142,11 @@ export default function ClueGame() {
             🎯 Welcome to Clue Game!
           </h1>
           <div className="relative mb-6 max-sm:mr-10 flex justify-center">
-            <img src={Botto} alt="Bot" className="w-24 sm:w-36 md:w-48" />
-            <div className="absolute left-33 -top-15 ml-2 sm:ml-4 w-44 sm:w-56 md:w-64 h-28 sm:h-32 md:h-36 rounded-xl shadow-lg">
-              <img src={DClound} alt="Speech Bubble" className="w-full h-full object-cover rounded-xl" />
-              <div className="absolute top-4 left-4 right-4 bottom-4 flex items-center justify-center text-center overflow-hidden">
-                <p className="text-xs sm:text-sm md:text-base text-gray-700 font-mono break-words whitespace-normal">
+            <img src={Botto} alt="Bot" className="w-48 max-sm:mr-32" />
+            <div className="absolute left-30 max-sm:left-31 -top-15 ml-2 sm:ml-4 w-64 h-36 rounded-xl">
+              <img src={DClound} alt="Speech Bubble" className="w-full h-full0" />
+              <div className="absolute top-6 left-10 right-9 bottom-8 flex items-center justify-center text-center overflow-hidden">
+                <p className="text-sm text-gray-700 font-mono font-bold break-words whitespace-normal">
                   <Typewriter
                     words={[
                       "Think of any animal in your mind,",
@@ -173,28 +173,19 @@ export default function ClueGame() {
         <>
           <h1
             style={{ fontFamily: "Fredoka, sans-serif" }}
-            className={`relative text-2xl sm:text-3xl text-sky-800 font-semibold mb-4 text-center ${gameOver ? "bottom-10" : "mt-25 sm:mt-4"}`}
+            className={`relative text-2xl sm:text-3xl text-sky-800 font-semibold mb-4 text-center ${gameOver ? "bottom-10" : ""}`}
           >
             🎯 Guess the Animal!
           </h1>
 
           <div className="relative mb-6 flex justify-center">
-            <img src={Botto} alt="Bot" className="w-24 sm:w-36 md:w-48" />
+            <img src={Botto} alt="Bot" className="w-48 max-sm:mr-32" />
             <div
-              className="
-                absolute
-                top-[5rem] sm:top-[4rem] md:top-[-4rem]
-                left-[6rem] sm:left-[9rem] md:left-[9.5rem]
-                w-44 sm:w-56 md:w-72
-                h-28 sm:h-36 md:h-40
-                rounded-xl
-                shadow-lg
-                z-10
-              "
+              className="absolute left-30 -top-15 ml-2 sm:ml-4 w-64 h-36"
             >
-              <img src={DClound} alt="Speech Bubble" className="w-full h-full object-cover rounded-xl" />
-              <div className="absolute top-4 left-6 right-6 bottom-4 flex items-center justify-center text-center overflow-hidden">
-                <p className="text-xs sm:text-sm md:text-base text-gray-700 font-mono break-words whitespace-normal">
+              <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
+              <div className="absolute top-6 left-10 right-9 bottom-8 flex items-center justify-center text-center overflow-hidden">
+                <p className="text-sm text-gray-700 font-mono font-bold break-words whitespace-normal">
                   <Typewriter
                     key={`${currentQuestion?.key}-${gameOver}`}
                     words={[!gameOver ? currentQuestion?.label : "Is this what you thought?"]}
@@ -214,7 +205,7 @@ export default function ClueGame() {
                   key={option}
                   onClick={() => handleAnswer(option)}
                   className="
-                    px-5 sm:px-6 py-2 sm:py-3
+                    px-6 py-3
                     bg-white text-black
                     text-xs sm:text-sm md:text-base
                     rounded-full shadow-md
