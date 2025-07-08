@@ -79,7 +79,6 @@ export const animals = [
   { name: "Lobster", legs: 10, habitat: "Ocean", fly: "no", size: "medium", active: "night", color: "red", sound: "Clack", src: Lobster }
 ];
 
-
 const questions = [
   { key: "legs", label: "How many legs does it have?" },
   { key: "fly", label: "Can it fly?" },
@@ -87,7 +86,7 @@ const questions = [
   { key: "size", label: "What is its size?" },
   { key: "active", label: "Is it active during the day or night?" },
   { key: "color", label: "What is its main color?" },
-  { key: "sound", label: "What sound does it make?" }
+  { key: "sound", label: "What sound does it make?" },
 ];
 
 export default function ClueGame() {
@@ -95,42 +94,29 @@ export default function ClueGame() {
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [started, setStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [ended, setEnded] = useState(false);
 
-  // Filter animals based on answers so far
-  const remainingAnimals = animals.filter((animal) => {
-    return Object.entries(answers).every(
-      ([key, value]) => animal[key] === value
-    );
-  });
+  const remainingAnimals = animals.filter((animal) =>
+    Object.entries(answers).every(([key, value]) => animal[key] === value)
+  );
 
-  // If only one animal left, end game
-  if (remainingAnimals.length === 1 && !gameOver) {
-    setGameOver(true);
-  }
+  useEffect(() => {
+    if ((remainingAnimals.length === 1 || remainingAnimals.length === 0) && !gameOver) {
+      setGameOver(true);
+    }
+  }, [remainingAnimals, gameOver]);
 
-  // If no animals left, end game
-  if (remainingAnimals.length === 0 && !gameOver) {
-    setGameOver(true);
-  }
-
-  // Helper to get unique options for current question
   const getValidOptions = (questionKey, animalsList) => {
     const options = animalsList.map((a) => a[questionKey]);
     return [...new Set(options)];
   };
 
   const currentQuestion = questions[currentQIndex];
-
-  // Options for current question filtered by remaining animals
-  const options =
-    currentQuestion && getValidOptions(currentQuestion.key, remainingAnimals);
+  const options = currentQuestion ? getValidOptions(currentQuestion.key, remainingAnimals) : [];
 
   function handleAnswer(option) {
     const newAnswers = { ...answers, [currentQuestion.key]: option };
     setAnswers(newAnswers);
 
-    // Filter animals after this answer
     const filtered = animals.filter((animal) =>
       Object.entries(newAnswers).every(([k, v]) => animal[k] === v)
     );
@@ -141,32 +127,30 @@ export default function ClueGame() {
       setCurrentQIndex(currentQIndex + 1);
     }
   }
-  
+
   useEffect(() => {
-    if (!gameOver && options && options.length === 1) {
+    if (!gameOver && options.length === 1) {
       handleAnswer(options[0]);
-      console.log(answers);
     }
   }, [options, gameOver]);
 
   return (
-
-    <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 pt-6 pb-24">
+    <div className="min-h-screen w-full flex flex-col items-center justify-between px-4 pt-6 pb-24 max-w-4xl mx-auto">
       {!started ? (
         <>
-          <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-3xl max-sm:text-2xl text-sky-800 font-semibold mb-4">
+          <h1 className="text-3xl max-sm:text-2xl text-sky-800 font-semibold mb-4 text-center" style={{ fontFamily: "Fredoka, sans-serif" }}>
             🎯 Welcome to Clue Game!
           </h1>
-          <div className="relative mb-6  max-sm:mr-35">
-            <img src={Botto} alt="Bot" className="w-36 md:w-48" />
-            <div className="absolute -top-10 left-[70%] w-55 h-30">
-              <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
-              <div className="absolute top-4 left-6 flex items-center justify-center text-center w-[80%] h-[68%]">
-                <p className="relative text-[12px] text-gray-700 font-mono">
+          <div className="relative mb-6 max-sm:mr-10 flex justify-center">
+            <img src={Botto} alt="Bot" className="w-24 sm:w-36 md:w-48" />
+            <div className="absolute left-33 -top-15 ml-2 sm:ml-4 w-44 sm:w-56 md:w-64 h-28 sm:h-32 md:h-36 rounded-xl shadow-lg">
+              <img src={DClound} alt="Speech Bubble" className="w-full h-full object-cover rounded-xl" />
+              <div className="absolute top-4 left-4 right-4 bottom-4 flex items-center justify-center text-center overflow-hidden">
+                <p className="text-xs sm:text-sm md:text-base text-gray-700 font-mono break-words whitespace-normal">
                   <Typewriter
                     words={[
                       "Think of any animal in your mind,",
-                      "and give me the data of the animal!"
+                      "and give me the data of the animal!",
                     ]}
                     loop={Infinity}
                     typeSpeed={40}
@@ -179,7 +163,7 @@ export default function ClueGame() {
           </div>
           <button
             onClick={() => setStarted(true)}
-            className="px-10 py-6 bg-emerald-400 text-white text-xl rounded-full shadow-md transition hover:bg-emerald-500 hover:scale-105"
+            className="px-8 sm:px-10 py-4 sm:py-6 bg-emerald-400 text-white text-lg sm:text-xl rounded-full shadow-md transition hover:bg-emerald-500 hover:scale-105"
             style={{ fontFamily: "Fredoka, sans-serif" }}
           >
             ▶️ Play
@@ -187,41 +171,55 @@ export default function ClueGame() {
         </>
       ) : (
         <>
-          {/* Game Title */}
-          <h1 style={{ fontFamily: "Fredoka, sans-serif" }} className="text-2xl text-sky-800 font-semibold mb-4">
+          <h1
+            style={{ fontFamily: "Fredoka, sans-serif" }}
+            className={`relative text-2xl sm:text-3xl text-sky-800 font-semibold mb-4 text-center ${gameOver ? "bottom-10" : "mt-25 sm:mt-4"}`}
+          >
             🎯 Guess the Animal!
           </h1>
-      
-          {/* Bot + Question Bubble */}
-          <div className="relative mb-6">
-            <img src={Botto} alt="Bot" className="w-36 md:w-48  max-sm:mr-35" />
-            <div className="absolute -top-7 left-[70%] max-sm:left-[36%] w-48 h-28 ">
-              <img src={DClound} alt="Speech Bubble" className="w-full h-full" />
-              <div className="absolute top-4 left-8 right-4 flex items-center justify-center text-center w-[70%] h-[70%]">
-                <p className="relative text-[12px] text-gray-700 font-mono break-words whitespace-wrap">
+
+          <div className="relative mb-6 flex justify-center">
+            <img src={Botto} alt="Bot" className="w-24 sm:w-36 md:w-48" />
+            <div
+              className="
+                absolute
+                top-[5rem] sm:top-[4rem] md:top-[-4rem]
+                left-[6rem] sm:left-[9rem] md:left-[9.5rem]
+                w-44 sm:w-56 md:w-72
+                h-28 sm:h-36 md:h-40
+                rounded-xl
+                shadow-lg
+                z-10
+              "
+            >
+              <img src={DClound} alt="Speech Bubble" className="w-full h-full object-cover rounded-xl" />
+              <div className="absolute top-4 left-6 right-6 bottom-4 flex items-center justify-center text-center overflow-hidden">
+                <p className="text-xs sm:text-sm md:text-base text-gray-700 font-mono break-words whitespace-normal">
                   <Typewriter
-                    key={`${currentQuestion.key}-${gameOver}`} 
-                    words={[
-                      !gameOver ? currentQuestion.label : "Is this what you thought?"
-                    ]}
+                    key={`${currentQuestion?.key}-${gameOver}`}
+                    words={[!gameOver ? currentQuestion?.label : "Is this what you thought?"]}
                     loop={1}
                     typeSpeed={30}
                     delaySpeed={1000}
                   />
-                  
                 </p>
               </div>
             </div>
           </div>
-      
-          {/* Answer Buttons */}
+
           {!gameOver && currentQuestion && options.length > 1 && (
-            <div className="flex flex-wrap gap-3 justify-center mb-6">
+            <div className="flex flex-wrap gap-3 justify-center mb-6 px-2 max-w-full">
               {options.map((option) => (
                 <button
                   key={option}
                   onClick={() => handleAnswer(option)}
-                  className="px-8 py-6 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
+                  className="
+                    px-5 sm:px-6 py-2 sm:py-3
+                    bg-white text-black
+                    text-xs sm:text-sm md:text-base
+                    rounded-full shadow-md
+                    transition hover:bg-emerald-300 hover:scale-105
+                  "
                   style={{ fontFamily: "Fredoka, sans-serif" }}
                 >
                   {option}
@@ -229,24 +227,27 @@ export default function ClueGame() {
               ))}
             </div>
           )}
-      
-          {/* Result */}
+
           {gameOver && (
-            <div className="flex flex-col items-center">
-              <div className="backdrop-blur-md bg-white/50 border border-white/30 rounded-2xl shadow-md px-4 py-4 w-72 h-52 flex flex-col items-center justify-between">
-                <h3 className="text-lg font-medium text-sky-900">
+            <div className="flex flex-col items-center w-full max-w-md mx-auto">
+              <div className="bg-white border border-gray-200 rounded-2xl shadow-md px-6 py-6 w-full h-64 flex flex-col items-center justify-between">
+                <h3 className="text-lg sm:text-xl font-medium text-sky-900 text-center">
                   {remainingAnimals.length === 1
                     ? `It's a ${remainingAnimals[0].name}! 🎉`
                     : "Hmm... I don’t know. 😕"}
                 </h3>
                 <div className="w-[80%] h-[90%] mt-3 overflow-hidden rounded-xl">
                   {remainingAnimals[0] && (
-                    <img src={remainingAnimals[0].src} alt={remainingAnimals[0].name} className="object-cover w-full h-full" />
+                    <img
+                      src={remainingAnimals[0].src}
+                      alt={remainingAnimals[0].name}
+                      className="object-cover w-full h-full"
+                    />
                   )}
                 </div>
               </div>
-                  
-              <div className="flex gap-5">
+
+              <div className="flex gap-5 mt-6 flex-wrap justify-center">
                 <button
                   onClick={() => {
                     setAnswers({});
@@ -254,30 +255,24 @@ export default function ClueGame() {
                     setGameOver(false);
                     setStarted(false);
                   }}
-                  className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
+                  className="px-6 py-4 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
                   style={{ fontFamily: "Fredoka, sans-serif" }}
                 >
                   🔁 Play Again
                 </button>
-                <Link
-                  to="/"
-                >
+                <Link to="/">
                   <button
-                    className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
+                    className="px-6 py-4 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
                     style={{ fontFamily: "Fredoka, sans-serif" }}
                   >
                     🏠 Home
                   </button>
                 </Link>
               </div>
-              
-
-              
             </div>
           )}
         </>
       )}
     </div>
-    
   );
 }
