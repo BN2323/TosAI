@@ -1,7 +1,7 @@
+// MusicManager.jsx
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-// Preload audio files
 const menuMusic = new Audio("/sounds/menu.mp3");
 const clueMusic = new Audio("/sounds/clue.mp3");
 const labMusic = new Audio("/sounds/lab.mp3");
@@ -12,31 +12,65 @@ menuMusic.loop = true;
 clueMusic.loop = true;
 labMusic.loop = true;
 
+// Default volumes (can be overridden by setVolumes)
 menuMusic.volume = 0.4;
 clueMusic.volume = 0.3;
 labMusic.volume = 0.3;
-clickSound.volume = 1;
 
 export let currentlyPlaying = null;
+
+const fadeIntervals = new WeakMap();
+
+export function fadeVolume(audio, targetVolume, duration = 1000) {
+  if (!audio || typeof audio.volume !== "number") return;
+  
+  targetVolume = Math.min(Math.max(0, targetVolume), 1);
+
+  if (fadeIntervals.has(audio)) {
+    clearInterval(fadeIntervals.get(audio));
+    fadeIntervals.delete(audio);
+  }
+
+  if (targetVolume === audio.volume) return;
+
+  const steps = 20;
+  const stepTime = duration / steps;
+  const startVolume = audio.volume;
+  const volumeStep = (targetVolume - startVolume) / steps;
+
+  let currentStep = 0;
+  const fade = setInterval(() => {
+    currentStep++;
+    let newVolume = startVolume + volumeStep * currentStep;
+    newVolume = Math.min(Math.max(0, newVolume), 1);
+    audio.volume = newVolume;
+
+    if (currentStep >= steps) {
+      clearInterval(fade);
+      fadeIntervals.delete(audio);
+      audio.volume = targetVolume;
+    }
+  }, stepTime);
+
+  fadeIntervals.set(audio, fade);
+}
 
 export default function MusicManager() {
   const location = useLocation();
 
   useEffect(() => {
-    // Stop currently playing music
     if (currentlyPlaying) {
       currentlyPlaying.pause();
       currentlyPlaying.currentTime = 0;
     }
 
-    // Determine which music to play
     let selected;
     if (location.pathname === "/") selected = menuMusic;
     else if (location.pathname === "/clue-game") selected = clueMusic;
     else if (location.pathname === "/creature-lab") selected = labMusic;
 
     if (selected) {
-      selected.play();
+      selected.play().catch(() => {}); // catch autoplay errors
       currentlyPlaying = selected;
     }
   }, [location.pathname]);
@@ -51,19 +85,29 @@ export function playSound(name) {
   else return;
 
   const clone = sound.cloneNode();
-  clone.volume = 0.5;
+  clone.volume = 0.5; 
   clone.play().catch(() => {});
+  return clone;
 }
 
-export function fadeVolume(audio, targetVolume, duration = 1000) {
-  const steps = 20;
-  const stepTime = duration / steps;
-  const volumeStep = (targetVolume - audio.volume) / steps;
+// Volume controls stored here and applied on all audios
+let volumes = { bg: 0.3, sfx: 0.5 };
 
-  let currentStep = 0;
-  const fade = setInterval(() => {
-    currentStep++;
-    audio.volume = Math.min(Math.max(0, audio.volume + volumeStep), 1);
-    if (currentStep >= steps) clearInterval(fade);
-  }, stepTime);
+export function setVolumes(newVolumes) {
+  if (typeof newVolumes.bg === "number") {
+    volumes.bg = Math.min(Math.max(0, newVolumes.bg), 1);
+    menuMusic.volume = volumes.bg;
+    clueMusic.volume = volumes.bg;
+    labMusic.volume = volumes.bg;
+    if (currentlyPlaying) currentlyPlaying.volume = volumes.bg;
+  }
+  if (typeof newVolumes.sfx === "number") {
+    volumes.sfx = Math.min(Math.max(0, newVolumes.sfx), 1);
+    clickSound.volume = volumes.sfx;
+    winSound.volume = volumes.sfx;
+  }
+}
+
+export function getVolumes() {
+  return { ...volumes };
 }

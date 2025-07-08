@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Typewriter } from 'react-simple-typewriter';
 import { playSound, fadeVolume, currentlyPlaying } from "../components/MusicManager";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 import Botto from "../assets/botto.png"
 import DClound from "../assets/dialog clound.svg"
 import Pig from "../assets/animals/pig.jpg"
@@ -95,7 +97,10 @@ export default function ClueGame() {
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [started, setStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
+  const { width, height } = useWindowSize();
+  
   const remainingAnimals = animals.filter((animal) =>
     Object.entries(answers).every(([key, value]) => animal[key] === value)
   );
@@ -104,12 +109,21 @@ export default function ClueGame() {
     if ((remainingAnimals.length === 1 || remainingAnimals.length === 0) && !gameOver) {
       setGameOver(true);
     }
-
-    if (gameOver) {
-      playSound("win");
-      fadeVolume(currentlyPlaying, 0.3, 100)
-    }
+      
   }, [remainingAnimals, gameOver]);
+
+  useEffect(() => {
+    if (gameOver) {
+      const winAudio = playSound("win");
+      fadeVolume(winAudio, 0, 3000); 
+      fadeVolume(currentlyPlaying, 0.3, 100);
+      setShowConfetti(true);
+      const timer = setTimeout(() => setShowConfetti(false), 4000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowConfetti(false);
+    }
+  }, [gameOver]);
 
   const getValidOptions = (questionKey, animalsList) => {
     const options = animalsList.map((a) => a[questionKey]);
@@ -170,7 +184,7 @@ export default function ClueGame() {
             </div>
           </div>
           <button
-            onClick={() => {setStarted(true); fadeVolume(currentlyPlaying, 0.4, 100)}}
+            onClick={() => {setStarted(true); fadeVolume(currentlyPlaying, 0.5, 100); playSound("click")}}
             className="px-8 sm:px-10 py-4 sm:py-6 bg-emerald-400 text-white text-lg sm:text-xl rounded-full shadow-md transition hover:bg-emerald-500 hover:scale-105"
             style={{ fontFamily: "Fredoka, sans-serif" }}
           >
@@ -228,47 +242,61 @@ export default function ClueGame() {
           )}
 
           {gameOver && (
-            <div className="flex flex-col items-center w-full max-w-md mx-auto">
-              <div className="bg-white border border-gray-200 rounded-2xl shadow-md px-6 py-6 w-full h-64 flex flex-col items-center justify-between">
-                <h3 className="text-lg sm:text-xl font-medium text-sky-900 text-center">
-                  {remainingAnimals.length === 1
-                    ? `It's a ${remainingAnimals[0].name}! 🎉`
-                    : "Hmm... I don’t know. 😕"}
-                </h3>
-                <div className="w-[80%] h-[90%] mt-3 overflow-hidden rounded-xl">
-                  {remainingAnimals[0] && (
-                    <img
-                      src={remainingAnimals[0].src}
-                      alt={remainingAnimals[0].name}
-                      className="object-cover w-full h-full"
-                    />
-                  )}
+            <>
+              <Confetti
+                width={width}
+                height={height}
+                numberOfPieces={400}
+                recycle={true}
+                gravity={0.2}
+                initialVelocityX={{ min: -10, max: 10 }}
+                initialVelocityY={{ min: -10, max: 10 }}
+                style={{ position: "fixed", top: 0, left: 0, zIndex: 9999, pointerEvents: "none" }}
+              />
+              <div className="flex flex-col items-center w-full max-w-md mx-auto">
+                <div className="bg-white border border-gray-200 rounded-2xl shadow-md px-6 py-6 w-full h-64 flex flex-col items-center justify-between">
+                  <h3 className="text-lg sm:text-xl font-medium text-sky-900 text-center">
+                    {remainingAnimals.length === 1
+                      ? `It's a ${remainingAnimals[0].name}! 🎉`
+                      : "Hmm... I don’t know. 😕"}
+                  </h3>
+                  <div className="w-[80%] h-[90%] mt-3 overflow-hidden rounded-xl">
+                    {remainingAnimals[0] && (
+                      <img
+                        src={remainingAnimals[0].src}
+                        alt={remainingAnimals[0].name}
+                        className="object-cover w-full h-full"
+                      />
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex gap-5 mt-6 flex-wrap justify-center">
-                <button
-                  onClick={() => {
-                    setAnswers({});
-                    setCurrentQIndex(0);
-                    setGameOver(false);
-                    setStarted(false);
-                  }}
-                  className="px-6 py-4 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
-                  style={{ fontFamily: "Fredoka, sans-serif" }}
-                >
-                  🔁 Play Again
-                </button>
-                <Link to="/">
+                <div className="flex gap-5 mt-6 flex-wrap justify-center">
                   <button
+                    onClick={() => {
+                      setAnswers({});
+                      setCurrentQIndex(0);
+                      setGameOver(false);
+                      setStarted(false);
+                      playSound("click")
+                    }}
                     className="px-6 py-4 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
                     style={{ fontFamily: "Fredoka, sans-serif" }}
                   >
-                    🏠 Home
+                    🔁 Play Again
                   </button>
-                </Link>
+                  <Link to="/">
+                    <button
+                      className="px-6 py-4 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
+                      style={{ fontFamily: "Fredoka, sans-serif" }}
+                      onClick={ playSound("click")}
+                    >
+                      🏠 Home
+                    </button>
+                  </Link>
+                </div>
               </div>
-            </div>
+            </>
           )}
         </>
       )}

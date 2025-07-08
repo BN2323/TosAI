@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ClueGame from "./pages/ClueGame";
 import CreatureLab from "./pages/CreatureLab";
+import SoundSettings from "./components/SoundSettings";
 import NavBar from "./components/NavBar";
 import { useState } from "react";
 import { IoMenu } from "react-icons/io5";
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/" element={<Home/>} />
             <Route path="/clue-game" element={<ClueGame />} />
             <Route path="/creature-lab" element={<CreatureLab />} />
+            <Route path="/setting" element={<SoundSettings />} />
           </Routes>
         </div>
       </div>

@@ -5,6 +5,7 @@ import Botto from "../assets/botto.png";
 import DClound from "../assets/dialog clound.svg";
 import { useWindowSize } from "react-use";
 import Confetti from "react-confetti";
+import { playSound, fadeVolume, currentlyPlaying } from "../components/MusicManager";
 
 
 const parts = {
@@ -24,12 +25,16 @@ export default function CreatureLab() {
 
   useEffect(() => {
     if (finished) {
+      const winAudio = playSound("win");
+      fadeVolume(winAudio, 0, 3000); 
+      fadeVolume(currentlyPlaying, 0.3, 100)
       setShowConfetti(true);
       const timer = setTimeout(() => setShowConfetti(false), 4000);
       return () => clearTimeout(timer);
     } else {
       setShowConfetti(false);
     }
+
   }, [finished]);
 
   const handlePartSelect = (option) => {
@@ -77,7 +82,8 @@ export default function CreatureLab() {
           </div>
 
           <button
-            onClick={() => setStarted(true)}
+      
+            onClick={() => {setStarted(true); playSound("click"); fadeVolume(currentlyPlaying, 0.5, 100)}}
             className="px-10 py-6 bg-emerald-400 text-white text-xl rounded-full shadow-md transition hover:bg-emerald-500 hover:scale-105"
             style={{ fontFamily: "Fredoka, sans-serif" }}
           >
@@ -116,7 +122,7 @@ export default function CreatureLab() {
             {parts[currentPart].map((option) => (
               <button
                 key={option}
-                onClick={() => handlePartSelect(option)}
+                onClick={() => {handlePartSelect(option); playSound("click")}}
                 className="px-8 py-6 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
                 style={{ fontFamily: "Fredoka, sans-serif" }}
               >
@@ -183,6 +189,7 @@ export default function CreatureLab() {
           setCurrentPart("head");
           setFinished(false);
           setStarted(false);
+          playSound("click")
         }}
         className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
         style={{ fontFamily: "Fredoka, sans-serif" }}
@@ -193,6 +200,7 @@ export default function CreatureLab() {
         <button
           className="mt-4 px-7 py-5 bg-white text-black text-base rounded-full shadow-md hover:bg-emerald-300 hover:scale-105"
           style={{ fontFamily: "Fredoka, sans-serif" }}
+          onClick={playSound("click")}
         >
           🏠 Home
         </button>
