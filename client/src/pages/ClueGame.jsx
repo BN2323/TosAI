@@ -14,6 +14,31 @@ import Duck from "../assets/animals/duck.jpg"
 import Eagle from "../assets/animals/eagle.jpg"
 import Owl from "../assets/animals/owl.jpg"
 import Parrot from "../assets/animals/parrot.jpg"
+import Bee from "../assets/animals/bee.jpg";
+import Butterfly from "../assets/animals/butterfly.jpg";
+import Frog from "../assets/animals/frog.jpg";
+import Snake from "../assets/animals/snake.jpg";
+import Wolf from "../assets/animals/wolf.jpg";
+import Bear from "../assets/animals/bear.jpg";
+import PolarBear from "../assets/animals/polar_bear.jpg";
+import Penguin from "../assets/animals/penguin.jpg";
+import Kangaroo from "../assets/animals/kangaroo.jpg";
+import Elephant from "../assets/animals/elephant.jpg";
+import Lion from "../assets/animals/lion.jpg";
+import Tiger from "../assets/animals/tiger.jpg";
+import Deer from "../assets/animals/deer.jpg";
+import Giraffe from "../assets/animals/giraffe.jpg";
+import Monkey from "../assets/animals/monkey.jpg";
+import Gorilla from "../assets/animals/gorilla.jpg";
+import Fox from "../assets/animals/fox.jpg";
+import Bat from "../assets/animals/bat.jpg";
+import Rabbit from "../assets/animals/rabbit.jpg";
+import Dolphin from "../assets/animals/dolphin.jpg";
+import Whale from "../assets/animals/whale.jpg";
+import Shark from "../assets/animals/shark.jpg";
+import Goldfish from "../assets/animals/gold_fish.jpg";
+import Crab from "../assets/animals/crab.jpg";
+import Lobster from "../assets/animals/lobster.jpg";
 
 export const animals = [
   { name: "Pig", legs: 4, habitat: "Farm", fly: "no", size: "medium", active: "day", color: "pink", sound: "Oink", src: Pig },
@@ -27,31 +52,31 @@ export const animals = [
   { name: "Eagle", legs: 2, habitat: "Forest", fly: "yes", size: "large", active: "day", color: "brown", sound: "Screech", src: Eagle },
   { name: "Owl", legs: 2, habitat: "Forest", fly: "yes", size: "small", active: "night", color: "brown", sound: "Hoot", src: Owl },
   { name: "Parrot", legs: 2, habitat: "House", fly: "yes", size: "small", active: "day", color: "green", sound: "Squawk", src: Parrot },
-  // { name: "Bee", legs: 6, habitat: "Garden", fly: "yes", size: "tiny", active: "day", color: "yellow", sound: "Buzz", src: Bee },
-  // { name: "Butterfly", legs: 6, habitat: "Garden", fly: "yes", size: "tiny", active: "day", color: "varies", sound: "Silent", src: Butterfly },
-  // { name: "Frog", legs: 4, habitat: "Pond", fly: "no", size: "small", active: "night", color: "green", sound: "Croak", src: Frog },
-  // { name: "Snake", legs: 0, habitat: "Forest", fly: "no", size: "medium", active: "day", color: "green", sound: "Hiss", src: Snake },
-  // { name: "Wolf", legs: 4, habitat: "Forest", fly: "no", size: "medium", active: "night", color: "gray", sound: "Howl", src: Wolf },
-  // { name: "Bear", legs: 4, habitat: "Forest", fly: "no", size: "large", active: "day", color: "brown", sound: "Growl", src: Bear },
-  // { name: "Polar Bear", legs: 4, habitat: "Arctic", fly: "no", size: "large", active: "day", color: "white", sound: "Growl", src: PolarBear },
-  // { name: "Penguin", legs: 2, habitat: "Arctic", fly: "no", size: "medium", active: "day", color: "black and white", sound: "Honk", src: Penguin },
-  // { name: "Kangaroo", legs: 2, habitat: "Grassland", fly: "no", size: "large", active: "day", color: "brown", sound: "Chortle", src: Kangaroo },
-  // { name: "Elephant", legs: 4, habitat: "Savanna", fly: "no", size: "large", active: "day", color: "gray", sound: "Trumpet", src: Elephant },
-  // { name: "Lion", legs: 4, habitat: "Savanna", fly: "no", size: "large", active: "day", color: "golden", sound: "Roar", src: Lion },
-  // { name: "Tiger", legs: 4, habitat: "Forest", fly: "no", size: "large", active: "night", color: "orange", sound: "Roar", src: Tiger },
-  // { name: "Deer", legs: 4, habitat: "Forest", fly: "no", size: "medium", active: "day", color: "brown", sound: "Bleat", src: Deer },
-  // { name: "Giraffe", legs: 4, habitat: "Savanna", fly: "no", size: "large", active: "day", color: "yellow", sound: "Silent", src: Giraffe },
-  // { name: "Monkey", legs: 2, habitat: "Forest", fly: "no", size: "small", active: "day", color: "brown", sound: "Chatter", src: Monkey },
-  // { name: "Gorilla", legs: 2, habitat: "Forest", fly: "no", size: "large", active: "day", color: "black", sound: "Grunt", src: Gorilla },
-  // { name: "Fox", legs: 4, habitat: "Forest", fly: "no", size: "small", active: "night", color: "red", sound: "Yip", src: Fox },
-  // { name: "Bat", legs: 2, habitat: "Cave", fly: "yes", size: "small", active: "night", color: "black", sound: "Screech", src: Bat },
-  // { name: "Rabbit", legs: 4, habitat: "Garden", fly: "no", size: "small", active: "night", color: "white", sound: "Silent", src: Rabbit },
-  // { name: "Dolphin", legs: 0, habitat: "Ocean", fly: "no", size: "large", active: "day", color: "gray", sound: "Click", src: Dolphin },
-  // { name: "Whale", legs: 0, habitat: "Ocean", fly: "no", size: "large", active: "day", color: "blue", sound: "Song", src: Whale },
-  // { name: "Shark", legs: 0, habitat: "Ocean", fly: "no", size: "large", active: "day", color: "gray", sound: "Silent", src: Shark },
-  // { name: "Goldfish", legs: 0, habitat: "Pond", fly: "no", size: "small", active: "day", color: "orange", sound: "Silent", src: Goldfish },
-  // { name: "Crab", legs: 10, habitat: "Beach", fly: "no", size: "small", active: "day", color: "red", sound: "Clack", src: Crab },
-  // { name: "Lobster", legs: 10, habitat: "Ocean", fly: "no", size: "medium", active: "night", color: "red", sound: "Clack", src: Lobster }
+  { name: "Bee", legs: 6, habitat: "Garden", fly: "yes", size: "tiny", active: "day", color: "yellow", sound: "Buzz", src: Bee },
+  { name: "Butterfly", legs: 6, habitat: "Garden", fly: "yes", size: "tiny", active: "day", color: "varies", sound: "Silent", src: Butterfly },
+  { name: "Frog", legs: 4, habitat: "Pond", fly: "no", size: "small", active: "night", color: "green", sound: "Croak", src: Frog },
+  { name: "Snake", legs: 0, habitat: "Forest", fly: "no", size: "medium", active: "day", color: "green", sound: "Hiss", src: Snake },
+  { name: "Wolf", legs: 4, habitat: "Forest", fly: "no", size: "medium", active: "night", color: "gray", sound: "Howl", src: Wolf },
+  { name: "Bear", legs: 4, habitat: "Forest", fly: "no", size: "large", active: "day", color: "brown", sound: "Growl", src: Bear },
+  { name: "Polar Bear", legs: 4, habitat: "Arctic", fly: "no", size: "large", active: "day", color: "white", sound: "Growl", src: PolarBear },
+  { name: "Penguin", legs: 2, habitat: "Arctic", fly: "no", size: "medium", active: "day", color: "black and white", sound: "Honk", src: Penguin },
+  { name: "Kangaroo", legs: 2, habitat: "Grassland", fly: "no", size: "large", active: "day", color: "brown", sound: "Chortle", src: Kangaroo },
+  { name: "Elephant", legs: 4, habitat: "Savanna", fly: "no", size: "large", active: "day", color: "gray", sound: "Trumpet", src: Elephant },
+  { name: "Lion", legs: 4, habitat: "Savanna", fly: "no", size: "large", active: "day", color: "golden", sound: "Roar", src: Lion },
+  { name: "Tiger", legs: 4, habitat: "Forest", fly: "no", size: "large", active: "night", color: "orange", sound: "Roar", src: Tiger },
+  { name: "Deer", legs: 4, habitat: "Forest", fly: "no", size: "medium", active: "day", color: "brown", sound: "Bleat", src: Deer },
+  { name: "Giraffe", legs: 4, habitat: "Savanna", fly: "no", size: "large", active: "day", color: "yellow", sound: "Silent", src: Giraffe },
+  { name: "Monkey", legs: 2, habitat: "Forest", fly: "no", size: "small", active: "day", color: "brown", sound: "Chatter", src: Monkey },
+  { name: "Gorilla", legs: 2, habitat: "Forest", fly: "no", size: "large", active: "day", color: "black", sound: "Grunt", src: Gorilla },
+  { name: "Fox", legs: 4, habitat: "Forest", fly: "no", size: "small", active: "night", color: "red", sound: "Yip", src: Fox },
+  { name: "Bat", legs: 2, habitat: "Cave", fly: "yes", size: "small", active: "night", color: "black", sound: "Screech", src: Bat },
+  { name: "Rabbit", legs: 4, habitat: "Garden", fly: "no", size: "small", active: "night", color: "white", sound: "Silent", src: Rabbit },
+  { name: "Dolphin", legs: 0, habitat: "Ocean", fly: "no", size: "large", active: "day", color: "gray", sound: "Click", src: Dolphin },
+  { name: "Whale", legs: 0, habitat: "Ocean", fly: "no", size: "large", active: "day", color: "blue", sound: "Song", src: Whale },
+  { name: "Shark", legs: 0, habitat: "Ocean", fly: "no", size: "large", active: "day", color: "gray", sound: "Silent", src: Shark },
+  { name: "Goldfish", legs: 0, habitat: "Pond", fly: "no", size: "small", active: "day", color: "orange", sound: "Silent", src: Goldfish },
+  { name: "Crab", legs: 10, habitat: "Beach", fly: "no", size: "small", active: "day", color: "red", sound: "Clack", src: Crab },
+  { name: "Lobster", legs: 10, habitat: "Ocean", fly: "no", size: "medium", active: "night", color: "red", sound: "Clack", src: Lobster }
 ];
 
 
