@@ -225,7 +225,7 @@ export default function ClueGame() {
               {options.map((option) => (
                 <button
                   key={option}
-                  onClick={() => {handleAnswer(option); playSound("click")}}
+                  onClick={() => {playSound("click"); handleAnswer(option)}}
                   className="
                     px-6 py-3
                     bg-white text-black

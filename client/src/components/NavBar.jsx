@@ -8,12 +8,10 @@ function NavBar({ showNav, setShowNav }) {
   const [showSettings, setShowSettings] = useState(false);
 
   const handleShowSettings = () => {
-    playSound("click");
     setShowSettings(true);
   };
 
   const handleBackToMenu = () => {
-    playSound("click");
     setShowSettings(false);
   };
 
@@ -31,7 +29,6 @@ function NavBar({ showNav, setShowNav }) {
           className="absolute top-1 right-1 p-0.5 hover:bg-sky-900/70 rounded-full hover:text-white transition-all duration-100"
           onClick={() => {
             setShowNav(false);
-            playSound("click");
             setShowSettings(false);
           }}
         >

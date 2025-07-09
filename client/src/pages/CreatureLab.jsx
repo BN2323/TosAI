@@ -83,7 +83,7 @@ export default function CreatureLab() {
 
           <button
       
-            onClick={() => {setStarted(true); playSound("click"); fadeVolume(currentlyPlaying, 0.5, 100)}}
+            onClick={() => {playSound("click"); setStarted(true); fadeVolume(currentlyPlaying, 0.5, 100)}}
             className="px-10 py-6 bg-emerald-400 text-white text-xl rounded-full shadow-md transition hover:bg-emerald-500 hover:scale-105"
             style={{ fontFamily: "Fredoka, sans-serif" }}
           >
@@ -122,7 +122,7 @@ export default function CreatureLab() {
             {parts[currentPart].map((option) => (
               <button
                 key={option}
-                onClick={() => {handlePartSelect(option); playSound("click")}}
+                onClick={() => {playSound("click"); handlePartSelect(option)}}
                 className="px-8 py-6 bg-white text-black text-base rounded-full shadow-md transition hover:bg-emerald-300 hover:scale-105"
                 style={{ fontFamily: "Fredoka, sans-serif" }}
               >
