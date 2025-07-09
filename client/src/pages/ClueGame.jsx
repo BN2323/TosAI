@@ -118,7 +118,7 @@ export default function ClueGame() {
       fadeVolume(winAudio, 0, 3000); 
       fadeVolume(currentlyPlaying, 0.3, 100);
       setShowConfetti(true);
-      const timer = setTimeout(() => setShowConfetti(false), 4000);
+      const timer = setTimeout(() => setShowConfetti(false), 3000);
       return () => clearTimeout(timer);
     } else {
       setShowConfetti(false);
@@ -247,7 +247,7 @@ export default function ClueGame() {
                 width={width}
                 height={height}
                 numberOfPieces={400}
-                recycle={true}
+                recycle={false}
                 gravity={0.2}
                 initialVelocityX={{ min: -10, max: 10 }}
                 initialVelocityY={{ min: -10, max: 10 }}
