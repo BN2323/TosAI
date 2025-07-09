@@ -41,7 +41,7 @@ function NavBar({ showNav, setShowNav }) {
           <Link
             to="/"
             className="p-3 rounded-lg hover:bg-amber-300 transition-colors duration-200 font-medium"
-            onClick={playSound("click")}
+            onClick={() => playSound("click")}
           >
             🏠 Home
           </Link>
@@ -49,7 +49,7 @@ function NavBar({ showNav, setShowNav }) {
           <Link
             to="/clue-game"
             className="p-3 rounded-lg hover:bg-amber-300 transition-colors duration-200 font-medium"
-            onClick={playSound("click")}
+            onClick={() => playSound("click")}
           >
             🧠 Clue Game
           </Link>
@@ -57,13 +57,13 @@ function NavBar({ showNav, setShowNav }) {
           <Link
             to="/creature-lab"
             className="p-3 rounded-lg hover:bg-amber-300 transition-colors duration-200 font-medium"
-            onClick={playSound("click")}
+            onClick={() => playSound("click")}
           >
             🧪 Creature Lab
           </Link>
 
           <button
-            onClick={handleShowSettings}
+            onClick={() => handleShowSettings}
             className="p-3 rounded-lg hover:bg-amber-300 transition-colors duration-200 font-medium text-left"
           >
             ⚙️ Settings
@@ -74,7 +74,7 @@ function NavBar({ showNav, setShowNav }) {
           <SoundSettings />
 
           <button
-            onClick={handleBackToMenu}
+            onClick={() => handleBackToMenu}
             className="mt-auto p-3 rounded-lg bg-amber-300 hover:bg-amber-400 transition-colors duration-200 font-medium"
           >
             ← Back to Menu
